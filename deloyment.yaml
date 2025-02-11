@@ -1,0 +1,28 @@
+services:
+  java-mysql8-container:
+    container_name: java-mysql8-container
+    image: mysql:8.4.2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: java_db
+    ports:
+      - 3309:3306
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - java-tutorial-network
+
+# docker-compose -f ./deloyment.yaml up -d java-mysql8-container
+# docker-compose -f ./deloyment.yaml rm -s -f java-mysql8-container
+# docker exec -it java-mysql8-container mysql -u admin -p
+
+networks:
+  java-tutorial-network:
+    name: java-tutorial-network
+    driver: bridge
+
+volumes:
+  mysql-volume:
